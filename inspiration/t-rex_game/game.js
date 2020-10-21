@@ -8,7 +8,7 @@ const randomIntInRange = (min, max) => Math.round(Math.random() * (max - min) + 
 const canvas = $('#game');
 const ctx = canvas.getContext('2d');
 
-let score, highscore, player, gravity, obstacles = [], gameSpeed, scoreText, highScoreText, keys = {};
+let score, highscore, player, gravity, gameSpeed, scoreText, highScoreText, obstacles = [], keys = {};
 
 // Event Listeners
 document.addEventListener('keydown', e => keys[e.code] = true);
@@ -157,11 +157,13 @@ const start = () => {
     gameSpeed = 3;
     gravity = 1;
     score = 0;
-    highscore = 0;
+    highscore = sessionStorage.getItem('highscore') ?? 0;
 
     player = new Avatar(25, 0, 50, 50, '#FF5858');
 
     scoreText = new Text('Score: ' + score, 25, 25, 'left', '#333333', 20);
+
+    highScoreText = new Text('High Score: ' + highscore, canvas.width - 25, 25, 'right', '#333');
 
     requestAnimationFrame(update);
 }
@@ -189,14 +191,39 @@ const update = () => {
     obstacles.forEach((o, i, ary) => {
         o.animate();
 
+        // Remove Obstacle Once it goes off screen
         if (o.x + o.width < 0) ary.splice(i, 1);
+
+        if (
+            player.x < o.x + o.width && 
+            player.x + player.width > o.x &&
+            player.y < o.y + o.height &&
+            player.y + player.height > o.y
+        ) {
+            obstacles = [];
+            score = 0;
+            spawnTimer = initialSpawnTimer;
+            gameSpeed = 3;
+            sessionStorage.setItem('highscore', highscore);
+        }
     });
 
     player.animate();
 
+    // Update Score
     score++;
+
+    // Update Score Text
     scoreText.text = 'Score: ' + score;
+
+    if (score > highscore) {
+        highscore = score;
+        highScoreText.text = 'Highscore: ' + highscore;
+    }
+
+    // Render Score Text
     scoreText.render();
+    highScoreText.render();
 
     gameSpeed += 0.003;
     

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emoji Jump Extreme</title>
+
+    <!-- Link To Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+    <!-- Start Screen Section -->
+    <section id="start-screen" class="menu-screen">
+
+        <div class="container">
+            <h1>Emoji Jump Extreme 🤯</h1>
+            <h2>High Score: 0</h2>
+            <button class="btn">Let's Go!</button>
+        </div>
+        
+    </section>
+
+
+    <!-- Avatar Picker -->
+    <section id="avatar-picker" class="menu-screen" style="display: none;">
+
+        <div class="container">
+            <h2>Pick Your Avatar</h2>
+
+            <div class="avatar-choices">
+                <div class="select-avatar">👾</div>
+                <div class="select-avatar">🧞‍♂️</div>
+                <div class="select-avatar">🧜‍♀️</div>
+                <div class="select-avatar">😂</div>
+                <div class="select-avatar">😛</div>
+                <div class="select-avatar">😎</div>
+            </div>
+        </div>
+        
+    </section>
+
+
+    <!-- Game Container -->
+    <section id="game-screen" class="game" style="display: none;">
+
+        <div class="game__container">
+            <canvas id="game"></canvas>
+        </div>
+        
+
+
+    </section>
+
+
+    <section id="end-screen" class="menu-screen" style="display: none;">
+
+        <div class="container">
+            <h2>Game Over!</h2>
+            <div id="results"></div>
+            <button class="btn">Play Again</button>
+        </div>
+        
+    </section>
+    
+
+    <!-- Link To JavaScript File -->
+    <script src="game.js"></script>
+
+</body>
+</html>
